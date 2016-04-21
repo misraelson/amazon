@@ -1,0 +1,32 @@
+Name: <%= @product.title %>
+<br><br>
+Description: <%= @product.description %>
+<br><br>
+Price: $<%= @product.price %>
+<br>
+Sale Price: $<%= @product.sale_price %>
+<br>
+
+<%= link_to "Edit", edit_product_path(@product) %>
+<%= link_to "Delete", product_path(@product),
+    method: :delete, data: {confirm: "Are you sure?"} %>
+<hr>
+<%= notice || alert %>
+<h3>WRITE A REVUE</h3>
+<%= @review.errors.full_messages.join(", ") %>
+  <%= form_for [@product, @review] do |f| %>
+    <%= f.label :body %> <br>
+    <%= f.text_area :body %> <br>
+    <%= f.label :stars %>
+    <%= f.text_field :stars %> <br>
+    <%= f.submit %>
+<% end %>
+
+<h2> Reviews: </h2>
+  <% @counter = 0 %>
+  <% @product.reviews.each do |rev| %>
+    Review <%= @counter += 1 %>: <%= rev.body %><br> Rating: <%= rev.stars %>
+    <%= button_to "Delete Review", [@product, rev],
+        method: :delete, data: {confirm: "u shure bruv?"} %>
+      <hr>
+  <% end %>
