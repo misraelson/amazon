@@ -1,6 +1,12 @@
 class Product < ActiveRecord::Base
 
   has_many :reviews, dependent: :destroy
+  has_many :favourites, dependent: :destroy
+  has_many :users, through: :favourites
+
+  def favourite_for(user)
+    favourites.find_by_user_id(user)
+  end
 
   after_initialize :default_values
 

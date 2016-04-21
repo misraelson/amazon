@@ -17,16 +17,17 @@ class ProductsController < ApplicationController
       render :new
     end
   end
-  
+
   def index
-    @products = Product.all
+    @products      = Product.all
   end
 
   def edit
-      @product = Product.find params[:id]
+      @product     = Product.find params[:id]
     end
 
   def show
+    @favourite     = @product.favourite_for(current_user)
     @review        = Review.new
   end
 

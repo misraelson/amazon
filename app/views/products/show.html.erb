@@ -5,6 +5,15 @@ Description: <%= @product.description %>
 Price: $<%= @product.price %>
 <br>
 Sale Price: $<%= @product.sale_price %>
+
+<br>
+
+<% if @favourite.present? && @favourite.persisted? %>
+  <%= link_to "Un-Fav", product_favourite_path(@product, @favourite), method: :delete %>
+<% else %>
+  <%= link_to "Favourite", product_favourites_path(@product), method: :product %>
+<% end %>
+
 <br>
 
 <%= link_to "Edit", edit_product_path(@product) %>
