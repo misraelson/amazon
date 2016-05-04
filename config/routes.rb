@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users
 
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create]do
@@ -6,10 +7,20 @@ Rails.application.routes.draw do
   end
 
   resources :products do
-    resources :reviews, only: [:create, :destroy]
+    resources :reviews, only: [:create, :destroy] do
+      resources :likes, only: [:create, :destroy]
+    end
       resources :favourites, only: [:create, :destroy]
+
   end
+
+  resources :favourites, only: [:index]
+
+
+
   root "products#index"
+
+  get "/favourites" => "favourites#index", as: :user_favourites
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

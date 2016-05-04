@@ -1,0 +1,4 @@
+<h1> Favourited Products </h1>
+<% @favourite_products.each do |list| %>
+  <%= link_to list.title, product_path(list) %> <br>
+<% end %>

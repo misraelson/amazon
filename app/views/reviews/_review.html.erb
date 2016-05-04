@@ -1,0 +1,15 @@
+<div id="<%= dom_id(review) %>" style="<%= style if defined?(style) %>">
+  <% @counter = 0 %>
+    Review <%= @counter += 1 %> : <%= review.body %> <br> Rating: <%= review.stars %>
+    <%= button_to "Delete Review", [@product, review],
+                    method: :delete,
+                    remote: true,
+                    data: {confirm: "u sure bruv?"} %>
+    <% if review.likes.where(user_id: current_user.id).present? %>
+      <%- @user_like = review.likes.where(user_id: current_user.id).first %>
+      <%= link_to "Un-Like", product_review_like_path(@product, review,  @user_like), method: :delete %>
+    <% else %>
+      <%= link_to "like", product_review_likes_path(@product, review), method: :post %>
+    <% end %>
+</div>
+<br>
