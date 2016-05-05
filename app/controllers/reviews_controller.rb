@@ -24,6 +24,10 @@ class ReviewsController < ApplicationController
     @like = @review.like_for(current_user)
   end
 
+  def edit
+    @product = Product.find params[:id]
+  end
+
   def destroy
     product = Product.find params[:product_id]
     @review = Review.find params[:id]

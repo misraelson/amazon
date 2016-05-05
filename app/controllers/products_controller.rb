@@ -20,6 +20,9 @@ class ProductsController < ApplicationController
 
   def index
     @products      = Product.all
+    respond_to do |format|
+      format.html { render }
+      format.json { render json: @product.select(:id. :title, :description, :price, :sale_price) }
   end
 
   def edit
